@@ -2,6 +2,8 @@
 #include <bitset>
 #include <cstring>
 
+#include <windows.h>
+
 union FloatBits
 {
     float f;
@@ -21,8 +23,10 @@ void printFloatBits(float num)
     std::cout << "Мантисса: " << bits.to_string().substr(9, 23) << std::endl;
 }
 
-int main()
-{
+int main() {
+    SetConsoleOutputCP(65001); // Устанавливаем кодировку UTF-8 для вывода
+    SetConsoleCP(65001);       // Устанавливаем кодировку UTF-8 для ввода
+    
     float numbers[] = {1.0f, -1.0f, 3.14f, 0.1f};
 
     for (float num : numbers)

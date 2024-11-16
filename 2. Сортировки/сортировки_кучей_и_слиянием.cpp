@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include <windows.h>
+
 // Вспомогательная функция для просеивания элемента вниз в куче
 void heapify(int *arr, int n, int i)
 {
@@ -117,6 +119,9 @@ void printArray(int *arr, int n)
 // Пример использования
 int main()
 {
+    SetConsoleOutputCP(65001); // Устанавливаем кодировку UTF-8 для вывода
+    SetConsoleCP(65001);       // Устанавливаем кодировку UTF-8 для ввода
+
     int arr[] = {12, 11, 13, 5, 6, 7};
     int n = sizeof(arr) / sizeof(arr[0]);
 

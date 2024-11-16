@@ -2,8 +2,13 @@
 #include <iomanip>
 #include <cmath>
 
+#include <windows.h>
+
 int main()
 {
+    SetConsoleOutputCP(65001); // Устанавливаем кодировку UTF-8 для вывода
+    SetConsoleCP(65001);       // Устанавливаем кодировку UTF-8 для ввода
+    
     float a = 1.0f;
 
     while (true)
