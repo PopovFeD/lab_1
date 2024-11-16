@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 
 #include <windows.h>
 
@@ -39,7 +40,7 @@ int main()
 
     std::cout << "Суммирование вперед: " << std::setprecision(10) << sum_forward << std::endl;
     std::cout << "Суммирование назад: " << std::setprecision(10) << sum_backward << std::endl;
-    std::cout << "Разница: " << std::setprecision(10) << abs(sum_forward - sum_backward) << std::endl;
+    std::cout << "Разница: " << std::setprecision(10) << std::abs(sum_forward - sum_backward) << std::endl;
 
     return 0;
 }
