@@ -1,39 +1,44 @@
 #include <iostream>
 
-struct subforwardlist {
+struct subforwardlist
+{
 
     int data;
 
-    subforwardlist* next;
-
+    subforwardlist *next;
 };
 
 // Список функций к реализации, вместо "@" нужно всатвить столько звездочек, сколько необходимо вам для реализации
-bool init(subforwardlist** sfl); 	//инициализация пустого недосписка
-bool push_back(subforwardlist** sfl, int d); 	//добавление элемента в конец недосписка
-int pop_back(subforwardlist** sfl); 	//удаление элемента с конца недосписка, если пустой - возвращать 0
-bool push_forward(subforwardlist** sfl, int d); 	//добавление элемента в начало недосписка
-int pop_forward(subforwardlist** sfl); 	//удаление элемента из начала недосписка, если пустой - возвращать 0
-bool push_where(subforwardlist** sfl, unsigned int where, int d); //добавление элемента с порядковым номером where
-int erase_where(subforwardlist** sfl, unsigned int where);	//удаление элемента с порядковым номером where, если пустой - возвращать 0
+bool init(subforwardlist **sfl);                                  // инициализация пустого недосписка
+bool push_back(subforwardlist **sfl, int d);                      // добавление элемента в конец недосписка
+int pop_back(subforwardlist **sfl);                               // удаление элемента с конца недосписка, если пустой - возвращать 0
+bool push_forward(subforwardlist **sfl, int d);                   // добавление элемента в начало недосписка
+int pop_forward(subforwardlist **sfl);                            // удаление элемента из начала недосписка, если пустой - возвращать 0
+bool push_where(subforwardlist **sfl, unsigned int where, int d); // добавление элемента с порядковым номером where
+int erase_where(subforwardlist **sfl, unsigned int where);        // удаление элемента с порядковым номером where, если пустой - возвращать 0
 
-unsigned int size(subforwardlist** sfl);	//определить размер недосписка
+unsigned int size(subforwardlist **sfl); // определить размер недосписка
 
-void clear(subforwardlist** sfl);	//очистить содержимое недосписка
+void clear(subforwardlist **sfl); // очистить содержимое недосписка
 
-bool init(subforwardlist** sfl) {
+bool init(subforwardlist **sfl)
+{
     *sfl = nullptr;
     return true;
 }
 
-bool push_back(subforwardlist** sfl, int d) {
-    subforwardlist* new_node = new subforwardlist{d, nullptr};
-    if (*sfl == nullptr) {
+bool push_back(subforwardlist **sfl, int d)
+{
+    subforwardlist *new_node = new subforwardlist{d, nullptr};
+    if (*sfl == nullptr)
+    {
         *sfl = new_node;
     }
-    else {
-        subforwardlist* current = *sfl;
-        while(current->next!=nullptr) {
+    else
+    {
+        subforwardlist *current = *sfl;
+        while (current->next != nullptr)
+        {
             current = current->next;
         }
         current->next = new_node;
@@ -41,108 +46,129 @@ bool push_back(subforwardlist** sfl, int d) {
     return true;
 }
 
-int pop_back(subforwardlist** sfl) {
-    if (*sfl == nullptr) {
+int pop_back(subforwardlist **sfl)
+{
+    if (*sfl == nullptr)
+    {
         std::cout << "Error: Empty list\n";
         return 0;
     }
 
     int data;
-    if((*sfl)->next == nullptr) {
+    if ((*sfl)->next == nullptr)
+    {
         data = (*sfl)->data;
         delete *sfl;
         *sfl = nullptr;
     }
-    else {
-        subforwardlist* current = *sfl;
-        while(current->next->next != nullptr) {
+    else
+    {
+        subforwardlist *current = *sfl;
+        while (current->next->next != nullptr)
+        {
             current = current->next;
         }
-    data = current->next->data;
-    delete current->next;
-    current->next = nullptr;
+        data = current->next->data;
+        delete current->next;
+        current->next = nullptr;
     }
     return data;
 }
 
-bool push_forward(subforwardlist** sfl, int d) {
-    subforwardlist* new_node = new subforwardlist{d, *sfl};
+bool push_forward(subforwardlist **sfl, int d)
+{
+    subforwardlist *new_node = new subforwardlist{d, *sfl};
     *sfl = new_node;
     return true;
 }
 
-int pop_forward(subforwardlist** sfl) {
-    if (*sfl == nullptr) {
+int pop_forward(subforwardlist **sfl)
+{
+    if (*sfl == nullptr)
+    {
         std::cout << "Error: Empty list\n";
         return 0;
     }
 
     int data = (*sfl)->data;
-    subforwardlist* temp = *sfl;
+    subforwardlist *temp = *sfl;
     *sfl = (*sfl)->next;
     delete temp;
     return data;
 }
 
-bool push_where(subforwardlist** sfl, unsigned int where, int d) {
-    if (where == 0) {
+bool push_where(subforwardlist **sfl, unsigned int where, int d)
+{
+    if (where == 0)
+    {
         return push_forward(sfl, d);
     }
 
-    subforwardlist* current = *sfl;
-    for (unsigned int i = 0; (i < where - 1) && current != nullptr; ++i) {
+    subforwardlist *current = *sfl;
+    for (unsigned int i = 0; (i < where - 1) && current != nullptr; ++i)
+    {
         current = current->next;
     }
-    
-    if (current == nullptr) {
-            std::cout << "Error: Out of range\n";
-            return false;
+
+    if (current == nullptr)
+    {
+        std::cout << "Error: Out of range\n";
+        return false;
     }
 
-    subforwardlist* new_node = new subforwardlist{d, current->next};
+    subforwardlist *new_node = new subforwardlist{d, current->next};
     current->next = new_node;
     return true;
 }
 
-int erase_where(subforwardlist** sfl, unsigned int where) {
-    if(*sfl == nullptr) {
+int erase_where(subforwardlist **sfl, unsigned int where)
+{
+    if (*sfl == nullptr)
+    {
         std::cout << "Error: Empty list\n";
         return 0;
     }
 
-    if (where == 0) {
+    if (where == 0)
+    {
         return pop_forward(sfl);
     }
-    subforwardlist* current = *sfl;
-    for (unsigned int i = 0; (i < where - 1) && current != nullptr; ++i) {
+    subforwardlist *current = *sfl;
+    for (unsigned int i = 0; (i < where - 1) && current != nullptr; ++i)
+    {
         current = current->next;
     }
-    
-    if (current == nullptr) {
-            std::cout << "Error: Out of range\n";
-            return 0;
+
+    if (current == nullptr)
+    {
+        std::cout << "Error: Out of range\n";
+        return 0;
     }
 
     int data = current->next->data;
-    subforwardlist* temp = current->next;
+    subforwardlist *temp = current->next;
     current->next = current->next->next;
     delete temp;
     return data;
 }
 
-unsigned int size(subforwardlist** sfl) {
-    subforwardlist* current = *sfl;
+unsigned int size(subforwardlist **sfl)
+{
+    subforwardlist *current = *sfl;
     unsigned int count = 0;
-    while (current!=nullptr) {
+    while (current != nullptr)
+    {
         ++count;
         current = current->next;
     }
     return count;
 }
 
-void clear(subforwardlist** sfl) {
-    while (*sfl != nullptr){
-        subforwardlist* temp = *sfl;
+void clear(subforwardlist **sfl)
+{
+    while (*sfl != nullptr)
+    {
+        subforwardlist *temp = *sfl;
         *sfl = (*sfl)->next;
         delete temp;
     }
@@ -155,14 +181,14 @@ using std::cout;
 using std::endl;
 double get_time()
 {
-    return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now().time_since_epoch()).count()/1e6;
+    return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now().time_since_epoch()).count() / 1e6;
 }
 int rand_uns(int min, int max)
 {
-        unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();
-        static std::default_random_engine e(seed);
-        std::uniform_int_distribution<int> d(min, max);
-        return d(e);
+    unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();
+    static std::default_random_engine e(seed);
+    std::uniform_int_distribution<int> d(min, max);
+    return d(e);
 }
 int main()
 {
@@ -177,7 +203,7 @@ int main()
     double start = 0, finish = 0, total = 0;
     cout << std::fixed;
     cout.precision(4);
-//----------- Initialization
+    //----------- Initialization
     start = get_time();
     for (unsigned int i = 0; i < n; i++)
     {
@@ -195,7 +221,7 @@ int main()
     cout << "Test sequence initialization: \t\t\t\t" << finish - start << endl;
     subforwardlist *sv;
     init(&sv);
-//----------- Test 000 Straight push_back
+    //----------- Test 000 Straight push_back
     start = get_time();
     for (unsigned int i = 0; i < n; i++)
     {
@@ -204,25 +230,27 @@ int main()
     finish = get_time();
     cout << "000 Straight push_back: \t\t\t\t" << finish - start << endl;
     total += finish - start;
-//----------- Test 001 Straight pop_forward
+    //----------- Test 001 Straight pop_forward
     start = get_time();
     for (unsigned int i = 0; i < n; i++)
     {
         if (pop_forward(&sv) != test_sequence[i])
         {
-            cout <<endl <<"--- !!! Failed push/pop consistency !!! ---" << endl;
+            cout << endl
+                 << "--- !!! Failed push/pop consistency !!! ---" << endl;
             return 0;
         }
     }
     finish = get_time();
     if (size(&sv))
     {
-        cout <<endl <<"--- !!! Failed push/pop consistency, some elememts stuck !!! ---" << endl;
+        cout << endl
+             << "--- !!! Failed push/pop consistency, some elememts stuck !!! ---" << endl;
         return 0;
     }
     cout << "001 Straight pop_forward: \t\t\t\t" << finish - start << endl;
     total += finish - start;
-//----------- Test 002 Straight push_forward
+    //----------- Test 002 Straight push_forward
     start = get_time();
     for (unsigned int i = 0; i < n; i++)
     {
@@ -231,25 +259,27 @@ int main()
     finish = get_time();
     cout << "002 Straight push_forward: \t\t\t\t" << finish - start << endl;
     total += finish - start;
-//----------- Test 003 Straight pop_back
+    //----------- Test 003 Straight pop_back
     start = get_time();
     for (unsigned int i = 0; i < n; i++)
     {
         if (pop_back(&sv) != test_sequence[i])
         {
-            cout <<endl <<"--- !!! Failed push/pop consistency !!! ---" << endl;
+            cout << endl
+                 << "--- !!! Failed push/pop consistency !!! ---" << endl;
             return 0;
         }
     }
     finish = get_time();
     if (size(&sv))
     {
-        cout <<endl <<"--- !!! Failed push/pop consistency, some elememts stuck !!! ---" << endl;
+        cout << endl
+             << "--- !!! Failed push/pop consistency, some elememts stuck !!! ---" << endl;
         return 0;
     }
     cout << "003 Straight pop_back: \t\t\t\t\t" << finish - start << endl;
     total += finish - start;
-//----------- Test 004 Random push_where
+    //----------- Test 004 Random push_where
     for (unsigned int i = 0; i < n; i++)
     {
         push_back(&sv, test_sequence[i]);
@@ -262,7 +292,8 @@ int main()
     finish = get_time();
     if (size(&sv) != 2 * n)
     {
-        cout <<endl <<"--- !!! Failed push/pop consistency, wrong elements number !!! ---" << endl;
+        cout << endl
+             << "--- !!! Failed push/pop consistency, wrong elements number !!! ---" << endl;
         return 0;
     }
     ongoing_sum = 0;
@@ -272,17 +303,19 @@ int main()
     }
     if (size(&sv))
     {
-        cout <<endl <<"--- !!! Failed push/pop consistency, some elememts stuck !!! ---" << endl;
+        cout << endl
+             << "--- !!! Failed push/pop consistency, some elememts stuck !!! ---" << endl;
         return 0;
     }
     if (ongoing_sum != 2 * test_sequence_sum)
     {
-        cout <<endl <<"--- !!! Failed push/pop consistency, sum incoherent !!! ---" << endl;
+        cout << endl
+             << "--- !!! Failed push/pop consistency, sum incoherent !!! ---" << endl;
         return 0;
     }
     cout << "004 Random push_where: \t\t\t\t\t" << finish - start << endl;
     total += finish - start;
-//----------- Test 005 Random erase_where
+    //----------- Test 005 Random erase_where
     for (unsigned int i = 0; i < 2 * n; i++)
     {
         push_back(&sv, test_sequence[i % n]);
@@ -296,19 +329,21 @@ int main()
     finish = get_time();
     if (size(&sv) != n)
     {
-        cout <<endl <<"--- !!! Failed push/pop consistency, wrong elements number !!! ---" << endl;
+        cout << endl
+             << "--- !!! Failed push/pop consistency, wrong elements number !!! ---" << endl;
         return 0;
     }
     clear(&sv);
     if (size(&sv))
     {
-        cout <<endl <<"--- !!! Clear works wrongly !!! ---" << endl;
+        cout << endl
+             << "--- !!! Clear works wrongly !!! ---" << endl;
         return 0;
     }
     cout << "005 Random erase_where: \t\t\t\t" << finish - start << " \t\t" << sum_for_O3 << endl;
     total += finish - start;
 
-//----------- Test 006 Random pop/push back equal amount
+    //----------- Test 006 Random pop/push back equal amount
     sum_for_O3 = 0; // This variable will be printed so O3 won't cut the whole thing.
     start = get_time();
     for (unsigned int i = 0; i < n; i++)
@@ -322,7 +357,7 @@ int main()
     clear(&sv);
     cout << "006 Random pop/push back equal amount: \t\t\t" << finish - start << "\t\t" << sum_for_O3 << endl;
     total += finish - start;
-//----------- Test 007 Random pop/push back more push
+    //----------- Test 007 Random pop/push back more push
     sum_for_O3 = 0; // This variable will be printed so O3 won't cut the whole thing.
     start = get_time();
     for (unsigned int i = 0; i < n; i++)
@@ -336,7 +371,7 @@ int main()
     clear(&sv);
     cout << "007 Random pop/push back more push: \t\t\t" << finish - start << "\t\t" << sum_for_O3 << endl;
     total += finish - start;
-//----------- Test 008 Random pop/push back much more push
+    //----------- Test 008 Random pop/push back much more push
     sum_for_O3 = 0; // This variable will be printed so O3 won't cut the whole thing.
     start = get_time();
     for (unsigned int i = 0; i < n; i++)
@@ -348,9 +383,9 @@ int main()
     }
     finish = get_time();
     clear(&sv);
-    cout << "008 Random pop/push back much more push: \t\t" << finish - start <<"\t\t" << sum_for_O3 << endl;
+    cout << "008 Random pop/push back much more push: \t\t" << finish - start << "\t\t" << sum_for_O3 << endl;
     total += finish - start;
-//----------- Test 009 Random pop/push forward equal amount
+    //----------- Test 009 Random pop/push forward equal amount
     sum_for_O3 = 0; // This variable will be printed so O3 won't cut the whole thing.
     start = get_time();
     for (unsigned int i = 0; i < n; i++)
@@ -364,7 +399,7 @@ int main()
     clear(&sv);
     cout << "009 Random pop/push forward equal amount: \t\t" << finish - start << "\t\t" << sum_for_O3 << endl;
     total += finish - start;
-//----------- Test 010 Random pop/push forward more push
+    //----------- Test 010 Random pop/push forward more push
     sum_for_O3 = 0; // This variable will be printed so O3 won't cut the whole thing.
     start = get_time();
     for (unsigned int i = 0; i < n; i++)
@@ -378,7 +413,7 @@ int main()
     clear(&sv);
     cout << "010 Random pop/push forward more push: \t\t\t" << finish - start << "\t\t" << sum_for_O3 << endl;
     total += finish - start;
-//----------- Test 011 Random pop/push forward much more push
+    //----------- Test 011 Random pop/push forward much more push
     sum_for_O3 = 0; // This variable will be printed so O3 won't cut the whole thing.
     start = get_time();
     for (unsigned int i = 0; i < n; i++)
@@ -390,9 +425,9 @@ int main()
     }
     finish = get_time();
     clear(&sv);
-    cout << "011 Random pop/push forward much more push: \t\t" << finish - start <<"\t\t" << sum_for_O3 << endl;
+    cout << "011 Random pop/push forward much more push: \t\t" << finish - start << "\t\t" << sum_for_O3 << endl;
     total += finish - start;
-//----------- Test 012 Random pop/push four ways
+    //----------- Test 012 Random pop/push four ways
     sum_for_O3 = 0; // This variable will be printed so O3 won't cut the whole thing.
     start = get_time();
     for (unsigned int i = 0; i < n; i++)
@@ -410,16 +445,17 @@ int main()
     clear(&sv);
     cout << "012 Random pop/push four ways: \t\t\t\t" << finish - start << "\t\t" << sum_for_O3 << endl;
     total += finish - start;
-//----------- End of tests
-//
-    cout << "-----------" << endl <<"Alltests finished, total time: \t" << total << endl;
+    //----------- End of tests
+    //
+    cout << "-----------" << endl
+         << "Alltests finished, total time: \t" << total << endl;
     delete[] test_sequence;
     delete[] pop_push_sequence_eq;
     delete[] pop_push_sequence_push;
     delete[] pop_push_sequence_pushpush;
     delete[] push_sequence,
-    delete[] pop_sequence,
-    delete[] four_ways_test;
+        delete[] pop_sequence,
+        delete[] four_ways_test;
 
     return 0;
 }

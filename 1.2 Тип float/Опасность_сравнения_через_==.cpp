@@ -3,7 +3,8 @@
 
 #include <windows.h>
 
-int main() {
+int main()
+{
     SetConsoleOutputCP(65001); // Устанавливаем кодировку UTF-8 для вывода
     SetConsoleCP(65001);       // Устанавливаем кодировку UTF-8 для ввода
 

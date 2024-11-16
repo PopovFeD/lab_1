@@ -7,7 +7,7 @@ int main()
 {
     SetConsoleOutputCP(65001); // Устанавливаем кодировку UTF-8 для вывода
     SetConsoleCP(65001);       // Устанавливаем кодировку UTF-8 для ввода
-    
+
     float sum = 0.0f;
     int k = 1;
 

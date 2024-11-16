@@ -4,12 +4,14 @@
 
 #include <windows.h>
 
-void printBits(int n) {
+void printBits(int n)
+{
     std::cout << "Число: " << n << std::endl;
     std::cout << "Побитовое представление: " << std::bitset<sizeof(int) * 8>(n) << std::endl;
 }
 
-int main() {
+int main()
+{
     SetConsoleOutputCP(65001); // Устанавливаем кодировку UTF-8 для вывода
     SetConsoleCP(65001);       // Устанавливаем кодировку UTF-8 для ввода
 

@@ -2,29 +2,33 @@
 #include <random>
 #include <chrono>
 
-struct subvector {
+struct subvector
+{
     int *mas;
     unsigned int top;
     unsigned int capacity;
 };
 
-bool init(subvector *qv); // инициализация пустого недовектора (top и capacity по нулям, а mas это NULL)
-bool push_back(subvector *qv, int d); // добавление элемента в конец недовектора с выделением дополнительной памяти при необходимости
-int pop_back(subvector *qv); // удаление элемента с конца недовектора, значение удаленного элемента вернуть (если недовектор пустой, вернуть ноль)
+bool init(subvector *qv);                              // инициализация пустого недовектора (top и capacity по нулям, а mas это NULL)
+bool push_back(subvector *qv, int d);                  // добавление элемента в конец недовектора с выделением дополнительной памяти при необходимости
+int pop_back(subvector *qv);                           // удаление элемента с конца недовектора, значение удаленного элемента вернуть (если недовектор пустой, вернуть ноль)
 bool resize(subvector *qv, unsigned int new_capacity); // увеличить емкость недовектора (можно использовать и для уменьшения - тогда, в рамках данной реализации, если top меньше новой capacity, то копируем только то, что влезает, и уменьшаем top до capacity)
-void shrink_to_fit(subvector *qv); // очистить неиспользуемую память, переехав на новое место с уменьшением capacity до top
-void clear(subvector *qv); // очистить содержимое недовектора, занимаемое место при этом не меняется
-void destructor(subvector *qv);	// очистить всю используемую память, инициализировать недовектор как пустой
+void shrink_to_fit(subvector *qv);                     // очистить неиспользуемую память, переехав на новое место с уменьшением capacity до top
+void clear(subvector *qv);                             // очистить содержимое недовектора, занимаемое место при этом не меняется
+void destructor(subvector *qv);                        // очистить всю используемую память, инициализировать недовектор как пустой
 
-bool init(subvector *qv) {
+bool init(subvector *qv)
+{
     qv->mas = nullptr;
     qv->capacity = 0;
     qv->top = 0;
     return true;
 }
 
-bool push_back(subvector *qv, int a) {
-    if (qv->top == qv->capacity) {
+bool push_back(subvector *qv, int a)
+{
+    if (qv->top == qv->capacity)
+    {
         unsigned int new_capacity;
         if (qv->capacity == 0)
             new_capacity = 1;
@@ -39,8 +43,10 @@ bool push_back(subvector *qv, int a) {
     return true;
 }
 
-int pop_back(subvector *qv) {
-    if(qv->top == 0) {
+int pop_back(subvector *qv)
+{
+    if (qv->top == 0)
+    {
         std::cout << "Error: empty vector\n";
         return 0;
     }
@@ -48,10 +54,12 @@ int pop_back(subvector *qv) {
     return qv->mas[qv->top];
 }
 
-bool resize(subvector* qv, unsigned int new_capacity) {
-    int* new_mas = new int[new_capacity];
+bool resize(subvector *qv, unsigned int new_capacity)
+{
+    int *new_mas = new int[new_capacity];
 
-    for (unsigned int i = 0; i < qv->top; ++i) {
+    for (unsigned int i = 0; i < qv->top; ++i)
+    {
         new_mas[i] = qv->mas[i];
     }
 
@@ -63,33 +71,36 @@ bool resize(subvector* qv, unsigned int new_capacity) {
     return true;
 }
 
-void shrink_to_fit(subvector *qv) {
+void shrink_to_fit(subvector *qv)
+{
     resize(qv, qv->top);
 }
 
-void clear(subvector *qv) {
+void clear(subvector *qv)
+{
     // Очистка содержимого недовектора
     qv->top = 0;
 }
 
-void destructor(subvector *qv) {
+void destructor(subvector *qv)
+{
     // Освобождение памяти и сброс параметров
     delete[] qv->mas;
     init(qv);
-}     
+}
 
 using std::cout;
 using std::endl;
 double get_time()
 {
-    return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now().time_since_epoch()).count()/1e6;
+    return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now().time_since_epoch()).count() / 1e6;
 }
 int rand_uns(int min, int max)
 {
-        unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();
-        static std::default_random_engine e(seed);
-        std::uniform_int_distribution<int> d(min, max);
-        return d(e);
+    unsigned seed = std::chrono::steady_clock::now().time_since_epoch().count();
+    static std::default_random_engine e(seed);
+    std::uniform_int_distribution<int> d(min, max);
+    return d(e);
 }
 int main()
 {
@@ -101,7 +112,7 @@ int main()
     double start = 0, finish = 0, total = 0;
     cout << std::fixed;
     cout.precision(4);
-//----------- Initialization
+    //----------- Initialization
     start = get_time();
     for (int i = 0; i < n; i++)
     {
@@ -114,18 +125,18 @@ int main()
     cout << "Test sequence initialization: \t\t" << finish - start << endl;
     subvector sv;
     init(&sv);
-//----------- Test 000 Straight push_back
+    //----------- Test 000 Straight push_back
     start = get_time();
     for (int i = 0; i < n; i++)
     {
         push_back(&sv, test_sequence[i]);
     }
     finish = get_time();
-    for (int i = 0; i < n; i++)   //!!! This is a hack to bamboozle the O3 optimization.
-        sum_for_O3 += sv.mas[i];  // I might as well use it to test push/pop.
+    for (int i = 0; i < n; i++)  //!!! This is a hack to bamboozle the O3 optimization.
+        sum_for_O3 += sv.mas[i]; // I might as well use it to test push/pop.
     cout << "000 Straight push_back: \t\t" << finish - start << endl;
     total += finish - start;
-//----------- Test 001 Straight pop_back
+    //----------- Test 001 Straight pop_back
     start = get_time();
     for (int i = 0; i < n; i++)
     {
@@ -134,12 +145,13 @@ int main()
     finish = get_time();
     if (sum_check != sum_for_O3)
     {
-        cout <<endl <<"--- !!! Failed push/pop consistency !!! ---" << endl;
+        cout << endl
+             << "--- !!! Failed push/pop consistency !!! ---" << endl;
         return 0;
     }
     cout << "001 Straight pop_back: \t\t\t" << finish - start << endl;
     total += finish - start;
-//----------- Test 002 Straight resize up
+    //----------- Test 002 Straight resize up
     start = get_time();
     for (int i = 0; i < n; i++)
     {
@@ -149,12 +161,13 @@ int main()
     shrink_to_fit(&sv);
     if (sv.capacity)
     {
-        cout <<endl <<"--- !!! Failed resize/shrink consistency !!! ---" << endl;
+        cout << endl
+             << "--- !!! Failed resize/shrink consistency !!! ---" << endl;
         return 0;
     }
     cout << "002 Straight resize up: \t\t" << finish - start << endl;
     total += finish - start;
-//----------- Test 003 Random pop/push equal amount
+    //----------- Test 003 Random pop/push equal amount
     sum_for_O3 = 0; // This variable will be printed so O3 won't cut the whole thing.
     start = get_time();
     for (int i = 0; i < n; i++)
@@ -169,17 +182,19 @@ int main()
     shrink_to_fit(&sv);
     if (sv.top)
     {
-        cout <<endl <<"--- !!! Falied clear !!! ---" << endl;
+        cout << endl
+             << "--- !!! Falied clear !!! ---" << endl;
         return 0;
     }
     if (sv.capacity)
     {
-        cout <<endl <<"--- !!! Falied shrink_to_fit !!! ---" << endl;
+        cout << endl
+             << "--- !!! Falied shrink_to_fit !!! ---" << endl;
         return 0;
     }
     cout << "003 Random pop/push equal amount: \t" << finish - start << "\t\t" << sum_for_O3 << endl;
     total += finish - start;
-//----------- Test 004 Random pop/push more push
+    //----------- Test 004 Random pop/push more push
     sum_for_O3 = 0; // This variable will be printed so O3 won't cut the whole thing.
     start = get_time();
     for (int i = 0; i < n; i++)
@@ -194,7 +209,7 @@ int main()
     shrink_to_fit(&sv);
     cout << "004 Random pop/push more push: \t\t" << finish - start << "\t\t" << sum_for_O3 << endl;
     total += finish - start;
-//----------- Test 005 Random pop/push much more push
+    //----------- Test 005 Random pop/push much more push
     sum_for_O3 = 0; // This variable will be printed so O3 won't cut the whole thing.
     start = get_time();
     for (int i = 0; i < n; i++)
@@ -207,13 +222,13 @@ int main()
     finish = get_time();
     cout << "005 Random pop/push much more push: \t" << finish - start << "\t\t" << sum_for_O3 << endl;
     total += finish - start;
-//----------- End of tests
+    //----------- End of tests
     destructor(&sv);
-    cout << "-----------" << endl <<"Alltests finished, total time: \t" << total << endl;
+    cout << "-----------" << endl
+         << "Alltests finished, total time: \t" << total << endl;
     delete[] test_sequence;
     delete[] pop_push_sequence_eq;
     delete[] pop_push_sequence_push;
     delete[] pop_push_sequence_pushpush;
     return 0;
 }
-
