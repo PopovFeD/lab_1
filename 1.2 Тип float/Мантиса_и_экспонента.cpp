@@ -28,7 +28,7 @@ int main()
     SetConsoleOutputCP(65001); // Устанавливаем кодировку UTF-8 для вывода
     SetConsoleCP(65001);       // Устанавливаем кодировку UTF-8 для ввода
 
-    float numbers[] = {1.0f, -1.0f, 3.14f, 0.1f};
+    float numbers[] = {1.0f, -1.0f, 3.14f, 0.1f, 2.25f, 8388608.0f, 8388609.0f};
 
     for (float num : numbers)
     {
@@ -38,3 +38,4 @@ int main()
 
     return 0;
 }
+// 1.0 * 2**0

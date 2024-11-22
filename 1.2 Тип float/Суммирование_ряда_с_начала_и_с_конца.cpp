@@ -20,6 +20,8 @@ int main()
         sum_forward += 1.0f / (k + 1);
         if (sum_forward == old_sum)
         {
+            std::cout << k << std::endl;
+            std::cout << 1.0f / (k + 1) << std::endl;
             break;
         }
         k++;
@@ -33,7 +35,7 @@ int main()
     }
 
     // Суммирование назад
-    for (int i = k + 100; i >= 1; i--)
+    for (int i = k * 100; i >= 1; i--)
     {
         sum_backward += 1.0f / i;
     }
