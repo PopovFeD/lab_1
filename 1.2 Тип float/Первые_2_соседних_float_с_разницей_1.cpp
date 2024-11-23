@@ -14,7 +14,7 @@ int main()
     while (true)
     {
         float b = std::nextafterf(a, INFINITY);
-        if (b - a >= 1.0f)
+        if (b - a >= 2.0f)
         {
             std::cout << std::setprecision(20);
             std::cout << "Первое число a: " << a << std::endl;
