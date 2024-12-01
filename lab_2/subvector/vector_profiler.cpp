@@ -1,11 +1,11 @@
 #include <iostream>
 #include <random>
 #include <chrono>
-#include "subVector.h"
+#include "subvector.h"
 
 // ваш код здесь
 
-using vector = SubVector;
+using vector = subvector;
 using std::cout;
 using std::endl;
 double get_time()

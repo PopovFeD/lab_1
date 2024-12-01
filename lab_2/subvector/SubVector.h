@@ -4,7 +4,7 @@
 #include <iostream>
 
 /**
- * @class SubVector
+ * @class subvector
  * @brief Релизация динамического вектора
  *
  * @details
@@ -12,7 +12,7 @@
  *  свой размер в зависимости от количества добавленных элементов
  */
 
-class SubVector
+class subvector
 {
 public:
     int *mas;
@@ -23,44 +23,44 @@ public:
     /**
      * @brief Конструктор, инициализирующий пустой вектор
      */
-    SubVector();
+    subvector();
 
     /**
      * @brief Конструктор, инициализирующий вектор с указанной емкостью
      * @param initial_capacity начальная емкость
      */
-    SubVector(unsigned int initial_capacity);
+    subvector(unsigned int initial_capacity);
 
     /**
      * @brief Конструктор копирования
      * @param other копируемый вектор
      */
-    SubVector(const SubVector &other);
+    subvector(const subvector &other);
 
     /**
      * @brief Конструктор перемещения
      * @param other вектор, перемещаемый в данный
      */
-    SubVector(SubVector &&other) noexcept;
+    subvector(subvector &&other) noexcept;
 
     /**
      * @brief Деструктор
      */
-    ~SubVector();
+    ~subvector();
 
     /**
      * @brief Оператор присваивания копированием
      * @param other вектор, присваиваемый текущему
      * @return ссылка на текущий вектор
      */
-    SubVector &operator=(const SubVector &other);
+    subvector &operator=(const subvector &other);
 
     /**
      * @brief Оператор присваивания перемещением
      * @param other вектор, присваиваемый текущему
      * @return ссылка на текущий вектор
      */
-    SubVector &operator=(SubVector &&other) noexcept;
+    subvector &operator=(subvector &&other) noexcept;
 
     /**
      * @brief Инициализация вектора

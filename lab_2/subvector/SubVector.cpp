@@ -1,26 +1,26 @@
 /**
- * @class SubVector
+ * @class subvector
  * @brief Класс, реализующий тип "динамический вектор"
  */
 
-#include "SubVector.h"
+#include "subvector.h"
 
 /**
  * @brief Конструктор, инициализирующий пустой вектор
  */
-SubVector::SubVector() : mas(nullptr), top(0), capacity(0) {}
+subvector::subvector() : mas(nullptr), top(0), capacity(0) {}
 
 /**
  * @brief Конструктор, инициализирующий вектор с заданной емкостью
  * @param initial_capacity начальная емкость вектора
  */
-SubVector::SubVector(unsigned int initial_capacity) : mas(new int[initial_capacity]), top(0), capacity(initial_capacity) {}
+subvector::subvector(unsigned int initial_capacity) : mas(new int[initial_capacity]), top(0), capacity(initial_capacity) {}
 
 /**
  * @brief Копирующий конструктор
  * @param other вектор, копируемый в текущий
  */
-SubVector::SubVector(const SubVector &other) : mas(new int[other.capacity]), top(other.top), capacity(other.capacity)
+subvector::subvector(const subvector &other) : mas(new int[other.capacity]), top(other.top), capacity(other.capacity)
 {
     for (unsigned int i = 0; i < top; ++i)
     {
@@ -32,7 +32,7 @@ SubVector::SubVector(const SubVector &other) : mas(new int[other.capacity]), top
  * @brief Перемещающий конструктор
  * @param other вектор, перемещаемый в текущий
  */
-SubVector::SubVector(SubVector &&other) noexcept : mas(other.mas), top(other.top), capacity(other.capacity)
+subvector::subvector(subvector &&other) noexcept : mas(other.mas), top(other.top), capacity(other.capacity)
 {
     other.mas = nullptr;
     other.top = 0;
@@ -42,7 +42,7 @@ SubVector::SubVector(SubVector &&other) noexcept : mas(other.mas), top(other.top
 /**
  * @brief Деструктор
  */
-SubVector::~SubVector()
+subvector::~subvector()
 {
     delete[] mas;
 }
@@ -52,7 +52,7 @@ SubVector::~SubVector()
  * @param other вектор, присваиваемый текущему
  * @return ссылка на текущий вектор
  */
-SubVector &SubVector::operator=(const SubVector &other)
+subvector &subvector::operator=(const subvector &other)
 {
     if (this == &other)
     {
@@ -78,7 +78,7 @@ SubVector &SubVector::operator=(const SubVector &other)
  * @param other вектор, присваиваемый текущему
  * @return ссылка на текущий вектор
  */
-SubVector &SubVector::operator=(SubVector &&other) noexcept
+subvector &subvector::operator=(subvector &&other) noexcept
 {
     if (this == &other)
     {
@@ -102,7 +102,7 @@ SubVector &SubVector::operator=(SubVector &&other) noexcept
  * @brief инициализация пустого вектора
  * @return true, если инициализация прошла успешно, false - в противном случае
  */
-bool SubVector::init()
+bool subvector::init()
 {
     mas = nullptr;
     capacity = 0;
@@ -115,7 +115,7 @@ bool SubVector::init()
  * @param d добавляемый элемент
  * @return true, если добавление прошло успешно, false - в противном случае
  */
-bool SubVector::push_back(int d)
+bool subvector::push_back(int d)
 {
     if (top == capacity)
     {
@@ -135,7 +135,7 @@ bool SubVector::push_back(int d)
  * @brief удаление элемента с конца вектора
  * @return удаленный элемент
  */
-int SubVector::pop_back()
+int subvector::pop_back()
 {
     if (top == 0)
     {
@@ -151,7 +151,7 @@ int SubVector::pop_back()
  * @param new_capacity новая емкость
  * @return true, если изменение прошло успешно, false - в противном случае
  */
-bool SubVector::resize(unsigned int new_capacity)
+bool subvector::resize(unsigned int new_capacity)
 {
     int *new_mas = new int[new_capacity];
 
@@ -171,7 +171,7 @@ bool SubVector::resize(unsigned int new_capacity)
 /**
  * @brief изменение емкости вектора до минимального значения
  */
-void SubVector::shrink_to_fit()
+void subvector::shrink_to_fit()
 {
     resize(top);
 }
@@ -179,7 +179,7 @@ void SubVector::shrink_to_fit()
 /**
  * @brief очистка содержимого вектора
  */
-void SubVector::clear()
+void subvector::clear()
 {
     top = 0;
 }

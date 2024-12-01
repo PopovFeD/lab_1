@@ -1,30 +1,30 @@
 #ifndef SUBFORWARDLIST_H
 #define SUBFORWARDLIST_H
 
-class SubForwardList
+class subforwardlist
 {
 public:
     /**
      * @brief Конструктор по умолчанию
      */
-    SubForwardList();
+    subforwardlist();
 
     /**
      * @brief Копирующий конструктор
      * @param other вектор, копируемый в текущий
      */
-    SubForwardList(const SubForwardList &other);
+    subforwardlist(const subforwardlist &other);
 
     /**
      * @brief Перемещающий конструктор
      * @param other вектор, перемещаемый в текущий
      */
-    SubForwardList(SubForwardList &&other) noexcept;
+    subforwardlist(subforwardlist &&other) noexcept;
 
     /**
      * @brief Деструктор
      */
-    ~SubForwardList();
+    ~subforwardlist();
     ;
 
     /**
@@ -32,14 +32,14 @@ public:
      * @param other вектор, присваиваемый текущему
      * @return ссылка на текущий вектор
      */
-    SubForwardList &operator=(const SubForwardList &other);
+    subforwardlist &operator=(const subforwardlist &other);
 
     /**
      * @brief Оператор присваивания перемещением
      * @param other вектор, присваиваемый текущему
      * @return ссылка на текущий вектор
      */
-    SubForwardList &operator=(SubForwardList &&other) noexcept;
+    subforwardlist &operator=(subforwardlist &&other) noexcept;
 
     /**
      * @brief Добавление элемента в конец

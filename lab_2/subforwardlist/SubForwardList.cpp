@@ -1,4 +1,4 @@
-#include "SubForwardList.h"
+#include "subforwardlist.h"
 #include <iostream>
 
 /**
@@ -6,7 +6,7 @@
  *
  * Создает пустой список
  */
-SubForwardList::SubForwardList() : head(nullptr) {}
+subforwardlist::subforwardlist() : head(nullptr) {}
 
 /**
  * @brief Конструктор копирования
@@ -14,7 +14,7 @@ SubForwardList::SubForwardList() : head(nullptr) {}
  *
  * Создает глубокую копию списка @param other
  */
-SubForwardList::SubForwardList(const SubForwardList &other) : head(nullptr)
+subforwardlist::subforwardlist(const subforwardlist &other) : head(nullptr)
 {
     if (other.head != nullptr)
     {
@@ -36,7 +36,7 @@ SubForwardList::SubForwardList(const SubForwardList &other) : head(nullptr)
  *
  * Создает список, забирая все ресурсы у @param other
  */
-SubForwardList::SubForwardList(SubForwardList &&other) noexcept : head(other.head)
+subforwardlist::subforwardlist(subforwardlist &&other) noexcept : head(other.head)
 {
     other.head = nullptr;
 }
@@ -46,7 +46,7 @@ SubForwardList::SubForwardList(SubForwardList &&other) noexcept : head(other.hea
  *
  * Очищает список
  */
-SubForwardList::~SubForwardList()
+subforwardlist::~subforwardlist()
 {
     clear();
 }
@@ -57,7 +57,7 @@ SubForwardList::~SubForwardList()
  *
  * Создает глубокую копию списка @param other
  */
-SubForwardList &SubForwardList::operator=(const SubForwardList &other)
+subforwardlist &subforwardlist::operator=(const subforwardlist &other)
 {
     if (this != &other)
     {
@@ -84,7 +84,7 @@ SubForwardList &SubForwardList::operator=(const SubForwardList &other)
  *
  * Забирает все ресурсы у @param other
  */
-SubForwardList &SubForwardList::operator=(SubForwardList &&other) noexcept
+subforwardlist &subforwardlist::operator=(subforwardlist &&other) noexcept
 {
     if (this != &other)
     {
@@ -101,7 +101,7 @@ SubForwardList &SubForwardList::operator=(SubForwardList &&other) noexcept
  *
  * @return true, если добавление прошло успешно, false - в противном случае
  */
-bool SubForwardList::push_back(int d)
+bool subforwardlist::push_back(int d)
 {
     Node *new_node = new Node(d, nullptr);
     if (head == nullptr)
@@ -125,7 +125,7 @@ bool SubForwardList::push_back(int d)
  *
  * @return удаленный элемент, если список не пуст, 0 - в противном случае
  */
-int SubForwardList::pop_back()
+int subforwardlist::pop_back()
 {
     if (head == nullptr)
     {
@@ -160,7 +160,7 @@ int SubForwardList::pop_back()
  *
  * @return true, если добавление прошло успешно, false - в противном случае
  */
-bool SubForwardList::push_forward(int d)
+bool subforwardlist::push_forward(int d)
 {
     Node *new_node = new Node(d, head);
     head = new_node;
@@ -172,7 +172,7 @@ bool SubForwardList::push_forward(int d)
  *
  * @return удаленный элемент, если список не пуст, 0 - в противном случае
  */
-int SubForwardList::pop_forward()
+int subforwardlist::pop_forward()
 {
     if (head == nullptr)
     {
@@ -194,7 +194,7 @@ int SubForwardList::pop_forward()
  *
  * @return true, если добавление прошло успешно, false - в противном случае
  */
-bool SubForwardList::push_where(unsigned int where, int d)
+bool subforwardlist::push_where(unsigned int where, int d)
 {
     if (where == 0)
     {
@@ -224,7 +224,7 @@ bool SubForwardList::push_where(unsigned int where, int d)
  *
  * @return удаленный элемент, если список не пуст, 0 - в противном случае
  */
-int SubForwardList::erase_where(unsigned int where)
+int subforwardlist::erase_where(unsigned int where)
 {
     if (head == nullptr)
     {
@@ -260,7 +260,7 @@ int SubForwardList::erase_where(unsigned int where)
  *
  * @return размер списка
  */
-unsigned int SubForwardList::size() const
+unsigned int subforwardlist::size() const
 {
     Node *current = head;
     unsigned int count = 0;
@@ -277,7 +277,7 @@ unsigned int SubForwardList::size() const
  *
  * удаляет все элементы из списка
  */
-void SubForwardList::clear()
+void subforwardlist::clear()
 {
     while (head != nullptr)
     {

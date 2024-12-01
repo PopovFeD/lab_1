@@ -1,11 +1,11 @@
 #include <iostream>
 #include <random>
 #include <chrono>
-#include "SubForwardList.h"
+#include "subforwardlist.h"
 
 // код здесь
 
-using list = SubForwardList;
+using list = subforwardlist;
 using std::cout;
 using std::endl;
 
