@@ -1,7 +1,7 @@
 #include <iostream>
 #include <random>
 #include <chrono>
-#include "SubVector.h"
+#include "subVector.h"
 
 // ваш код здесь
 
