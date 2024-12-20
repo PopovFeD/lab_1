@@ -66,3 +66,4 @@ const int &matrix::operator()(size_t i, size_t j) const
     }
     return data.mas[i * m_cols + j];
 }
+
